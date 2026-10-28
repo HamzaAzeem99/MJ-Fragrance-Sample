@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MJ Fragrance | Majestic Journey</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            light: '#f3e5ab',
+                            DEFAULT: '#d4af37',
+                            dark: '#aa820a',
+                        },
+                        dark: {
+                            900: '#0a0a0a',
+                            800: '#121212',
+                            700: '#1a1a1a',
+                            600: '#262626',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0a0a0a;
+            color: #f3f4f6;
+        }
+        .font-serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #FFF099 0%, #D4AF37 50%, #997A15 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gold-border-glow {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+        }
+        .gold-btn {
+            background: linear-gradient(135deg, #d4af37 0%, #aa820a 100%);
+            color: #000;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .gold-btn:hover {
+            background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 100%);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+        .gold-outline-btn {
+            border: 1px solid #d4af37;
+            color: #d4af37;
+            transition: all 0.3s ease;
+        }
+        .gold-outline-btn:hover {
+            background: rgba(212, 175, 55, 0.15);
+            color: #fff;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #262626;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4af37;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-gold selection:text-black">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-gradient-to-r from-dark-900 via-gold-dark to-dark-900 text-black text-xs font-bold py-2 text-center tracking-widest uppercase border-b border-gold/30">
+        ✨ Free Shipping Across Pakistan on Orders Over Rs. 3,500 | 100% Authentic Long-Lasting Fragrances ✨
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="sticky top-0 z-40 bg-dark-900/90 backdrop-blur-md border-b border-gold/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateTo('home')">
+                    <div class="w-12 h-12 rounded-full border-2 border-gold flex items-center justify-center bg-dark-800 shadow-lg">
+                        <span class="font-serif-title font-bold text-xl gold-gradient-text">MJ</span>
+                    </div>
+                    <div>
+                        <span class="font-serif-title text-xl font-bold tracking-wider gold-gradient-text block leading-none">MJ FRAGRANCE</span>
+                        <span class="text-[9px] tracking-[0.3em] text-gray-400 uppercase font-light">Majestic Journey</span>
+                    </div>
+                </div>
+
+                <!-- Navigation Links (Desktop) -->
+                <nav class="hidden md:flex space-x-8 text-sm font-medium tracking-wider uppercase">
+                    <button id="nav-home" onclick="navigateTo('home')" class="text-gold hover:text-gold transition-colors py-1 border-b-2 border-gold">Home</button>
+                    <button id="nav-products" onclick="navigateTo('products')" class="text-gray-300 hover:text-gold transition-colors py-1 border-b-2 border-transparent">All Products</button>
+                    <button id="nav-checkout" onclick="navigateTo('checkout')" class="text-gray-300 hover:text-gold transition-colors py-1 border-b-2 border-transparent">Order / Checkout</button>
+                </nav>
+
+                <!-- Header Actions -->
+                <div class="flex items-center space-x-5">
+                    <!-- Instagram Redirect -->
+                    <a href="https://www.instagram.com/mj._.fragrance/" target="_blank" rel="noopener" class="text-gray-300 hover:text-gold text-lg transition-colors" title="Follow us on Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+
+                    <!-- Shopping Cart Icon -->
+                    <button onclick="navigateTo('checkout')" class="relative text-gray-300 hover:text-gold text-xl p-1 transition-colors">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span id="cart-count-badge" class="absolute -top-1 -right-2 bg-gold text-black text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                    </button>
+
+                    <!-- Mobile Navigation Menu Toggle -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-gray-300 hover:text-gold text-xl focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-dark-800 border-b border-gold/20 px-4 pt-2 pb-4 space-y-2 text-sm uppercase font-medium">
+            <button onclick="navigateTo('home'); toggleMobileMenu();" class="block w-full text-left py-2 text-gold">Home</button>
+            <button onclick="navigateTo('products'); toggleMobileMenu();" class="block w-full text-left py-2 text-gray-300 hover:text-gold">All Products</button>
+            <button onclick="navigateTo('checkout'); toggleMobileMenu();" class="block w-full text-left py-2 text-gray-300 hover:text-gold">Order / Checkout</button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER WITH THREE DYNAMIC PAGES -->
+    <main class="flex-grow">
+
+        <!-- ==================== PAGE 1: HOME PAGE ==================== -->
+        <section id="page-home" class="space-y-20 pb-16">
+            
+            <!-- Hero Banner -->
+            <div class="relative bg-dark-800 border-b border-gold/20 overflow-hidden">
+                <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    
+                    <div class="space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full border border-gold/40 bg-gold/5 text-gold text-xs font-semibold uppercase tracking-widest">
+                            <i class="fas fa-crown text-xs"></i>
+                            <span>Luxury Perfume Collection</span>
+                        </div>
+                        <h1 class="text-4xl sm:text-6xl font-serif-title font-bold text-white leading-tight">
+                            Elevate Your Sense With <span class="gold-gradient-text block">Majestic Journey</span>
+                        </h1>
+                        <p class="text-gray-400 text-base sm:text-lg max-w-xl mx-auto lg:mx-0">
+                            Immerse yourself in rich, long-lasting Artisanal Eau De Parfums crafted for sophistication, confidence, and unforgettable presence.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                            <button onclick="navigateTo('products')" class="w-full sm:w-auto px-8 py-4 gold-btn rounded-md tracking-wider uppercase text-sm font-bold flex items-center justify-center space-x-2">
+                                <span>Shop Collection</span>
+                                <i class="fas fa-arrow-right text-xs"></i>
+                            </button>
+                            <button onclick="navigateTo('checkout')" class="w-full sm:w-auto px-8 py-4 gold-outline-btn rounded-md tracking-wider uppercase text-sm font-bold">
+                                View Cart & Order
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Hero Visual Cards -->
+                    <div class="grid grid-cols-2 gap-4 relative">
+                        <div class="space-y-4">
+                            <div class="bg-dark-900 border border-gold/30 rounded-xl p-3 shadow-xl transform hover:-translate-y-1 transition duration-300">
+                                <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" alt="White Oud Perfume" class="w-full h-48 sm:h-64 object-cover rounded-lg">
+                                <div class="mt-3 text-center">
+                                    <h4 class="font-serif-title text-gold font-bold text-sm">White Oud</h4>
+                                    <p class="text-xs text-gray-400">Eau De Parfum</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4 pt-8">
+                            <div class="bg-dark-900 border border-gold/30 rounded-xl p-3 shadow-xl transform hover:-translate-y-1 transition duration-300">
+                                <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80" alt="Dunhill Desire Perfume" class="w-full h-48 sm:h-64 object-cover rounded-lg">
+                                <div class="mt-3 text-center">
+                                    <h4 class="font-serif-title text-gold font-bold text-sm">Dunhill Desire</h4>
+                                    <p class="text-xs text-gray-400">Bold & Sensual</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Featured Highlights Section -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <h2 class="text-xs font-bold text-gold uppercase tracking-widest mb-2">Exclusive Signatures</h2>
+                    <h3 class="text-3xl sm:text-4xl font-serif-title font-bold text-white">Featured Fragrances</h3>
+                    <div class="w-16 h-0.5 bg-gold mx-auto mt-4"></div>
+                </div>
+
+                <div id="featured-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Dynamic rendering via JS -->
+                </div>
+
+                <div class="text-center mt-12">
+                    <button onclick="navigateTo('products')" class="px-8 py-3 gold-outline-btn rounded-md text-sm font-semibold tracking-wider uppercase">
+                        Explore All Products <i class="fas fa-th-large ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Brand Promise / Features -->
+            <div class="bg-dark-800 py-16 border-y border-gold/20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                        <div class="p-6 bg-dark-900/60 rounded-xl border border-gold/10">
+                            <div class="w-12 h-12 rounded-full bg-gold/10 text-gold flex items-center justify-center mx-auto mb-4 text-xl">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h4 class="font-serif-title text-lg font-bold text-white mb-2">12+ Hours Longevity</h4>
+                            <p class="text-gray-400 text-sm">Formulated with premium essential oils ensuring long-lasting projection throughout the day.</p>
+                        </div>
+                        <div class="p-6 bg-dark-900/60 rounded-xl border border-gold/10">
+                            <div class="w-12 h-12 rounded-full bg-gold/10 text-gold flex items-center justify-center mx-auto mb-4 text-xl">
+                                <i class="fas fa-gem"></i>
+                            </div>
+                            <h4 class="font-serif-title text-lg font-bold text-white mb-2">Luxury Craftsmanship</h4>
+                            <p class="text-gray-400 text-sm">Masterfully blended notes inspired by timeless world-class royal fragrance heritage.</p>
+                        </div>
+                        <div class="p-6 bg-dark-900/60 rounded-xl border border-gold/10">
+                            <div class="w-12 h-12 rounded-full bg-gold/10 text-gold flex items-center justify-center mx-auto mb-4 text-xl">
+                                <i class="fas fa-truck-fast"></i>
+                            </div>
+                            <h4 class="font-serif-title text-lg font-bold text-white mb-2">Fast Nationwide Delivery</h4>
+                            <p class="text-gray-400 text-sm">Dispatched safely in luxury packaging with Cash on Delivery & Direct Payment options.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ==================== PAGE 2: ALL PRODUCTS PAGE ==================== -->
+        <section id="page-products" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-gold/20 pb-6 mb-8 gap-4">
+                <div>
+                    <h1 class="text-3xl sm:text-4xl font-serif-title font-bold text-white">All Fragrances</h1>
+                    <p class="text-gray-400 text-sm mt-1">Discover our full catalog of luxury Eau De Parfums.</p>
+                </div>
+
+                <!-- Filters and Search -->
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <div class="relative">
+                        <input type="text" id="product-search" oninput="filterProducts()" placeholder="Search perfume..." class="bg-dark-800 border border-gold/30 rounded-md px-4 py-2 pl-10 text-sm text-white focus:outline-none focus:border-gold w-full sm:w-60">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-500 text-xs"></i>
+                    </div>
+                    <select id="category-filter" onchange="filterProducts()" class="bg-dark-800 border border-gold/30 rounded-md px-4 py-2 text-sm text-white focus:outline-none focus:border-gold">
+                        <option value="all">All Fragrance Types</option>
+                        <option value="Oud">Oud / Woody</option>
+                        <option value="Floral">Floral / Sweet</option>
+                        <option value="Fresh">Fresh / Spicy</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="all-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Dynamically filled with products -->
+            </div>
+
+        </section>
+
+
+        <!-- ==================== PAGE 3: ORDER / CHECKOUT PAGE ==================== -->
+        <section id="page-checkout" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            
+            <div class="border-b border-gold/20 pb-6 mb-8">
+                <h1 class="text-3xl sm:text-4xl font-serif-title font-bold text-white">Order & Checkout</h1>
+                <p class="text-gray-400 text-sm mt-1">Review your cart items and complete your order details.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+                <!-- Left Column: Cart Summary (5 cols) -->
+                <div class="lg:col-span-5 bg-dark-800 rounded-xl p-6 border border-gold/20 h-fit space-y-6">
+                    <h2 class="text-xl font-serif-title font-bold text-gold flex items-center justify-between">
+                        <span>Your Cart</span>
+                        <span id="cart-item-count" class="text-xs bg-gold/10 border border-gold text-gold px-2 py-1 rounded">0 items</span>
+                    </h2>
+
+                    <div id="cart-items-container" class="space-y-4 max-h-96 overflow-y-auto pr-2">
+                        <!-- Dynamic Cart Rows -->
+                    </div>
+
+                    <div class="border-t border-gold/20 pt-4 space-y-2 text-sm">
+                        <div class="flex justify-between text-gray-400">
+                            <span>Subtotal</span>
+                            <span id="summary-subtotal" class="text-white font-medium">Rs. 0</span>
+                        </div>
+                        <div class="flex justify-between text-gray-400">
+                            <span>Shipping Fee</span>
+                            <span id="summary-shipping" class="text-white font-medium">Rs. 200</span>
+                        </div>
+                        <div class="flex justify-between text-lg font-bold text-white border-t border-gold/10 pt-3">
+                            <span>Total Payable</span>
+                            <span id="summary-total" class="gold-gradient-text">Rs. 200</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Shipping & Payment Details (7 cols) -->
+                <div class="lg:col-span-7 bg-dark-800 rounded-xl p-6 border border-gold/20 space-y-6">
+                    <form id="checkout-form" onsubmit="handlePlaceOrder(event)" class="space-y-6">
+                        
+                        <!-- Customer Info -->
+                        <div>
+                            <h3 class="text-lg font-serif-title font-bold text-white mb-4 border-b border-gold/10 pb-2">1. Shipping Information</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-gray-300 mb-1">Full Name *</label>
+                                    <input type="text" id="cust-name" required placeholder="e.g. Muhammad Ali" class="w-full bg-dark-900 border border-gold/30 rounded-md p-3 text-sm text-white focus:outline-none focus:border-gold">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-gray-300 mb-1">Phone / WhatsApp *</label>
+                                    <input type="tel" id="cust-phone" required placeholder="0300 1234567" class="w-full bg-dark-900 border border-gold/30 rounded-md p-3 text-sm text-white focus:outline-none focus:border-gold">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-gray-300 mb-1">City *</label>
+                                    <input type="text" id="cust-city" required placeholder="e.g. Karachi, Lahore, Islamabad" class="w-full bg-dark-900 border border-gold/30 rounded-md p-3 text-sm text-white focus:outline-none focus:border-gold">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase text-gray-300 mb-1">Email (Optional)</label>
+                                    <input type="email" id="cust-email" placeholder="ali@example.com" class="w-full bg-dark-900 border border-gold/30 rounded-md p-3 text-sm text-white focus:outline-none focus:border-gold">
+                                </div>
+                                <div class="sm:col-span-2">
+                                    <label class="block text-xs font-semibold uppercase text-gray-300 mb-1">Full Delivery Address *</label>
+                                    <textarea id="cust-address" required rows="2" placeholder="House/Flat #, Street, Area..." class="w-full bg-dark-900 border border-gold/30 rounded-md p-3 text-sm text-white focus:outline-none focus:border-gold"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Payment Method Selection -->
+                        <div>
+                            <h3 class="text-lg font-serif-title font-bold text-white mb-4 border-b border-gold/10 pb-2">2. Payment Method</h3>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+                                <label class="border border-gold/30 rounded-lg p-3 flex flex-col items-center justify-center cursor-pointer hover:border-gold transition bg-dark-900">
+                                    <input type="radio" name="payment_method" value="cod" checked onchange="togglePaymentInstructions()" class="accent-gold mb-2">
+                                    <i class="fas fa-hand-holding-dollar text-xl text-gold mb-1"></i>
+                                    <span class="text-xs font-bold text-white">Cash On Delivery</span>
+                                </label>
+                                <label class="border border-gold/30 rounded-lg p-3 flex flex-col items-center justify-center cursor-pointer hover:border-gold transition bg-dark-900">
+                                    <input type="radio" name="payment_method" value="easypaisa" onchange="togglePaymentInstructions()" class="accent-gold mb-2">
+                                    <i class="fas fa-mobile-screen-button text-xl text-green-400 mb-1"></i>
+                                    <span class="text-xs font-bold text-white">Easypaisa</span>
+                                </label>
+                                <label class="border border-gold/30 rounded-lg p-3 flex flex-col items-center justify-center cursor-pointer hover:border-gold transition bg-dark-900">
+                                    <input type="radio" name="payment_method" value="jazzcash" onchange="togglePaymentInstructions()" class="accent-gold mb-2">
+                                    <i class="fas fa-wallet text-xl text-red-400 mb-1"></i>
+                                    <span class="text-xs font-bold text-white">JazzCash</span>
+                                </label>
+                            </div>
+
+                            <!-- Easypaisa Instructions Panel -->
+                            <div id="easypaisa-box" class="hidden p-4 rounded-lg bg-emerald-950/40 border border-green-500/30 text-sm space-y-2">
+                                <p class="text-green-300 font-bold flex items-center gap-2">
+                                    <i class="fas fa-info-circle"></i> Easypaisa Transfer Details:
+                                </p>
+                                <p class="text-gray-300">Account Title: <strong class="text-white">MJ Fragrance Official</strong></p>
+                                <p class="text-gray-300">Account Number: <strong class="text-white">0312-3456789</strong></p>
+                                <div class="mt-2">
+                                    <label class="block text-xs text-gray-300 mb-1">Enter Transaction ID (TID) / Reference Number *</label>
+                                    <input type="text" id="easypaisa-tid" placeholder="e.g. 129847192" class="w-full bg-dark-900 border border-green-500/40 rounded p-2 text-xs text-white">
+                                </div>
+                            </div>
+
+                            <!-- JazzCash Instructions Panel -->
+                            <div id="jazzcash-box" class="hidden p-4 rounded-lg bg-rose-950/40 border border-red-500/30 text-sm space-y-2">
+                                <p class="text-red-300 font-bold flex items-center gap-2">
+                                    <i class="fas fa-info-circle"></i> JazzCash Transfer Details:
+                                </p>
+                                <p class="text-gray-300">Account Title: <strong class="text-white">MJ Fragrance Official</strong></p>
+                                <p class="text-gray-300">Account Number: <strong class="text-white">0300-9876543</strong></p>
+                                <div class="mt-2">
+                                    <label class="block text-xs text-gray-300 mb-1">Enter Transaction ID (TID) / Reference Number *</label>
+                                    <input type="text" id="jazzcash-tid" placeholder="e.g. 88392019" class="w-full bg-dark-900 border border-red-500/40 rounded p-2 text-xs text-white">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="w-full py-4 gold-btn rounded-md tracking-widest uppercase text-sm font-bold flex items-center justify-center space-x-2">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Confirm & Place Order</span>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ORDER RECEIPT MODAL -->
+    <div id="order-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-dark-800 border border-gold rounded-2xl max-w-md w-full p-6 text-center space-y-6 relative shadow-2xl">
+            <div class="w-16 h-16 bg-gold/10 border-2 border-gold rounded-full flex items-center justify-center mx-auto text-gold text-2xl">
+                <i class="fas fa-crown"></i>
+            </div>
+            
+            <div>
+                <h3 class="text-2xl font-serif-title font-bold text-white">Order Confirmed!</h3>
+                <p class="text-gold text-xs font-semibold uppercase tracking-widest mt-1">Thank you for choosing MJ Fragrance</p>
+            </div>
+
+            <div class="bg-dark-900 border border-gold/10 rounded-xl p-4 text-left text-xs space-y-2 text-gray-300">
+                <p><span class="text-gray-500">Order ID:</span> <strong id="receipt-id" class="text-white font-mono">#MJ-0000</strong></p>
+                <p><span class="text-gray-500">Name:</span> <strong id="receipt-name" class="text-white"></strong></p>
+                <p><span class="text-gray-500">Phone:</span> <strong id="receipt-phone" class="text-white"></strong></p>
+                <p><span class="text-gray-500">Payment Method:</span> <strong id="receipt-payment" class="text-white uppercase"></strong></p>
+                <p><span class="text-gray-500">Total Amount:</span> <strong id="receipt-total" class="text-gold font-bold"></strong></p>
+            </div>
+
+            <p class="text-xs text-gray-400">Our team will call/WhatsApp you shortly to confirm your dispatch details.</p>
+
+            <button onclick="closeModalAndReset()" class="w-full py-3 gold-btn rounded-md text-sm font-bold tracking-wider uppercase">
+                Continue Shopping
+            </button>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-gold text-black px-4 py-3 rounded-lg shadow-xl text-sm font-bold flex items-center space-x-2 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message">Product added to cart!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark-900 border-t border-gold/20 py-12 mt-16 text-gray-400 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+            
+            <div class="space-y-3">
+                <div class="flex items-center justify-center md:justify-start space-x-2">
+                    <span class="font-serif-title font-bold text-xl gold-gradient-text">MJ FRAGRANCE</span>
+                </div>
+                <p class="text-xs text-gray-500">Majestic Journey — Crafting royal, long-lasting fragrances designed to evoke elegance and confidence.</p>
+                <a href="https://www.instagram.com/mj._.fragrance/" target="_blank" class="inline-flex items-center space-x-2 text-gold hover:underline text-xs">
+                    <i class="fab fa-instagram"></i>
+                    <span>@mj._.fragrance</span>
+                </a>
+            </div>
+
+            <div class="space-y-2">
+                <h4 class="font-serif-title text-white font-bold text-base border-b border-gold/20 pb-1 inline-block">Quick Links</h4>
+                <ul class="space-y-1 text-xs uppercase tracking-wider">
+                    <li><a href="#" onclick="navigateTo('home'); return false;" class="hover:text-gold">Home</a></li>
+                    <li><a href="#" onclick="navigateTo('products'); return false;" class="hover:text-gold">All Products</a></li>
+                    <li><a href="#" onclick="navigateTo('checkout'); return false;" class="hover:text-gold">Checkout</a></li>
+                </ul>
+            </div>
+
+            <div class="space-y-2 text-xs">
+                <h4 class="font-serif-title text-white font-bold text-base border-b border-gold/20 pb-1 inline-block">Customer Care</h4>
+                <p>📍 Karachi, Pakistan</p>
+                <p>📞 WhatsApp Support: +92 300 1234567</p>
+                <p>💳 Payments: COD, Easypaisa, JazzCash</p>
+            </div>
+
+        </div>
+        <div class="text-center text-xs text-gray-600 mt-10 pt-6 border-t border-gold/10">
+            &copy; 2026 MJ Fragrance (Majestic Journey). All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Sample Product Database from MJ Fragrance Instagram Page
+        const products = [
+            {
+                id: 1,
+                name: "Sabaya Type",
+                subtitle: "Eau De Parfum",
+                price: 2499,
+                category: "Floral",
+                notes: "Rose, Fresh Citrus, Soft Musk",
+                image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80",
+                description: "A captivating, enchanting floral blend with fresh citrus openings and a rich velvety rose trail.",
+                featured: true
+            },
+            {
+                id: 2,
+                name: "Dunhill Desire",
+                subtitle: "Eau De Parfum",
+                price: 2699,
+                category: "Fresh",
+                notes: "Apple, Neroli, Bergamot, Teakwood",
+                image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80",
+                description: "Bold, sensual, and unforgettable. Designed for the passionate individual seeking distinct elegance.",
+                featured: true
+            },
+            {
+                id: 3,
+                name: "White Oud",
+                subtitle: "Eau De Parfum",
+                price: 2999,
+                category: "Oud",
+                notes: "White Agarwood, Amber, Vanilla, Spices",
+                image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80",
+                description: "A smooth, majestic oriental blend highlighting white agarwood balanced with creamy warm amber.",
+                featured: true
+            },
+            {
+                id: 4,
+                name: "Dirham",
+                subtitle: "Eau De Parfum",
+                price: 2399,
+                category: "Fresh",
+                notes: "Lemon, Bergamot, Lavender, Cedarwood",
+                image: "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600&q=80",
+                description: "Refreshing royal oriental perfume with vibrant citrus top notes and smooth woody undertones.",
+                featured: true
+            }
+        ];
+
+        // Shopping Cart State
+        let cart = [];
+
+        // Application Initialization
+        window.onload = function() {
+            renderFeaturedProducts();
+            renderAllProducts();
+            updateCartUI();
+        };
+
+        // Navigation Controller
+        function navigateTo(pageId) {
+            document.getElementById('page-home').classList.add('hidden');
+            document.getElementById('page-products').classList.add('hidden');
+            document.getElementById('page-checkout').classList.add('hidden');
+
+            document.getElementById('nav-home').className = "text-gray-300 hover:text-gold transition-colors py-1 border-b-2 border-transparent";
+            document.getElementById('nav-products').className = "text-gray-300 hover:text-gold transition-colors py-1 border-b-2 border-transparent";
+            document.getElementById('nav-checkout').className = "text-gray-300 hover:text-gold transition-colors py-1 border-b-2 border-transparent";
+
+            document.getElementById(`page-${pageId}`).classList.remove('hidden');
+            document.getElementById(`nav-${pageId}`).className = "text-gold hover:text-gold transition-colors py-1 border-b-2 border-gold";
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Render Featured Products (Home Page)
+        function renderFeaturedProducts() {
+            const container = document.getElementById('featured-products-grid');
+            const featured = products.filter(p => p.featured);
+            
+            container.innerHTML = featured.map(product => `
+                <div class="bg-dark-800 border border-gold/20 rounded-xl overflow-hidden shadow-lg group hover:border-gold/60 transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="relative overflow-hidden h-64">
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-md border border-gold/40 text-gold text-[10px] px-2 py-1 rounded-full uppercase font-bold tracking-widest">${product.category}</span>
+                        </div>
+                        <div class="p-5 space-y-2">
+                            <h4 class="font-serif-title font-bold text-lg text-white group-hover:text-gold transition">${product.name}</h4>
+                            <p class="text-xs text-gray-400 font-light">${product.notes}</p>
+                            <p class="text-xs text-gray-500 line-clamp-2">${product.description}</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0 flex items-center justify-between border-t border-gold/10 mt-2">
+                        <span class="text-gold font-bold text-lg">Rs. ${product.price.toLocaleString()}</span>
+                        <button onclick="addToCart(${product.id})" class="px-4 py-2 gold-btn rounded text-xs uppercase font-bold">
+                            Add To Cart
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render All Products Grid (Products Page)
+        function renderAllProducts(items = products) {
+            const container = document.getElementById('all-products-grid');
+            if(items.length === 0) {
+                container.innerHTML = `<div class="col-span-full text-center py-12 text-gray-500">No fragrances matched your search filter.</div>`;
+                return;
+            }
+
+            container.innerHTML = items.map(product => `
+                <div class="bg-dark-800 border border-gold/20 rounded-xl overflow-hidden shadow-lg group hover:border-gold/60 transition duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="relative overflow-hidden h-64">
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-3 right-3 bg-black/70 backdrop-blur-md border border-gold/40 text-gold text-[10px] px-2 py-1 rounded-full uppercase font-bold tracking-widest">${product.category}</span>
+                        </div>
+                        <div class="p-5 space-y-2">
+                            <span class="text-[10px] text-gray-400 uppercase tracking-widest block">${product.subtitle}</span>
+                            <h4 class="font-serif-title font-bold text-lg text-white group-hover:text-gold transition">${product.name}</h4>
+                            <p class="text-xs text-gold/80 italic"><i class="fas fa-feather-pointed text-[10px] mr-1"></i>${product.notes}</p>
+                            <p class="text-xs text-gray-400 mt-2">${product.description}</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0 flex items-center justify-between border-t border-gold/10 mt-4">
+                        <div>
+                            <span class="text-xs text-gray-500 block">Price</span>
+                            <span class="text-gold font-bold text-lg">Rs. ${product.price.toLocaleString()}</span>
+                        </div>
+                        <button onclick="addToCart(${product.id})" class="px-4 py-2 gold-btn rounded text-xs uppercase font-bold flex items-center space-x-1">
+                            <i class="fas fa-cart-plus"></i>
+                            <span>Add</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter Products Functionality
+        function filterProducts() {
+            const searchVal = document.getElementById('product-search').value.toLowerCase();
+            const categoryVal = document.getElementById('category-filter').value;
+
+            const filtered = products.filter(product => {
+                const matchesSearch = product.name.toLowerCase().includes(searchVal) || product.notes.toLowerCase().includes(searchVal);
+                const matchesCategory = categoryVal === 'all' || product.category === categoryVal;
+                return matchesSearch && matchesCategory;
+            });
+
+            renderAllProducts(filtered);
+        }
+
+        // Cart Actions
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existing = cart.find(item => item.id === productId);
+
+            if(existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            updateCartUI();
+            showToast(`Added ${product.name} to cart!`);
+        }
+
+        function updateCartQuantity(productId, delta) {
+            const item = cart.find(i => i.id === productId);
+            if(item) {
+                item.quantity += delta;
+                if(item.quantity <= 0) {
+                    cart = cart.filter(i => i.id !== productId);
+                }
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const totalCount = cart.reduce((sum, i) => sum + i.quantity, 0);
+            document.getElementById('cart-count-badge').innerText = totalCount;
+            document.getElementById('cart-item-count').innerText = `${totalCount} items`;
+
+            const container = document.getElementById('cart-items-container');
+            
+            if(cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-gray-500 space-y-2">
+                        <i class="fas fa-shopping-bag text-3xl text-gray-600 block"></i>
+                        <p class="text-sm">Your shopping cart is empty.</p>
+                        <button onclick="navigateTo('products')" class="text-xs text-gold underline font-semibold">Browse Perfumes</button>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = cart.map(item => `
+                    <div class="flex items-center justify-between bg-dark-900/80 p-3 rounded-lg border border-gold/10">
+                        <div class="flex items-center space-x-3">
+                            <img src="${item.image}" alt="${item.name}" class="w-12 h-12 object-cover rounded">
+                            <div>
+                                <h5 class="text-sm font-bold text-white">${item.name}</h5>
+                                <p class="text-xs text-gold">Rs. ${item.price.toLocaleString()}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="updateCartQuantity(${item.id}, -1)" class="w-6 h-6 bg-dark-700 text-gold rounded flex items-center justify-center font-bold text-xs hover:bg-gold hover:text-black">-</button>
+                            <span class="text-xs font-bold text-white w-4 text-center">${item.quantity}</span>
+                            <button onclick="updateCartQuantity(${item.id}, 1)" class="w-6 h-6 bg-dark-700 text-gold rounded flex items-center justify-center font-bold text-xs hover:bg-gold hover:text-black">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Calculations
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shipping = subtotal > 3500 || subtotal === 0 ? 0 : 200;
+            const grandTotal = subtotal + (subtotal === 0 ? 0 : shipping);
+
+            document.getElementById('summary-subtotal').innerText = `Rs. ${subtotal.toLocaleString()}`;
+            document.getElementById('summary-shipping').innerText = shipping === 0 ? 'FREE' : `Rs. ${shipping}`;
+            document.getElementById('summary-total').innerText = `Rs. ${grandTotal.toLocaleString()}`;
+        }
+
+        // Toggle Payment Panel Instructions
+        function togglePaymentInstructions() {
+            const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+            const easypaisaBox = document.getElementById('easypaisa-box');
+            const jazzcashBox = document.getElementById('jazzcash-box');
+
+            easypaisaBox.classList.add('hidden');
+            jazzcashBox.classList.add('hidden');
+
+            if(paymentMethod === 'easypaisa') easypaisaBox.classList.remove('hidden');
+            if(paymentMethod === 'jazzcash') jazzcashBox.classList.remove('hidden');
+        }
+
+        // Handle Place Order
+        function handlePlaceOrder(e) {
+            e.preventDefault();
+
+            if(cart.length === 0) {
+                showToast("Please add at least 1 fragrance to your cart first!");
+                return;
+            }
+
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const shipping = subtotal > 3500 ? 0 : 200;
+            const total = subtotal + shipping;
+
+            // Fill Receipt Details
+            document.getElementById('receipt-id').innerText = `#MJ-${Math.floor(1000 + Math.random() * 9000)}`;
+            document.getElementById('receipt-name').innerText = name;
+            document.getElementById('receipt-phone').innerText = phone;
+            document.getElementById('receipt-payment').innerText = paymentMethod.toUpperCase();
+            document.getElementById('receipt-total').innerText = `Rs. ${total.toLocaleString()}`;
+
+            // Show Confirmation Modal
+            document.getElementById('order-modal').classList.remove('hidden');
+        }
+
+        function closeModalAndReset() {
+            document.getElementById('order-modal').classList.add('hidden');
+            cart = [];
+            updateCartUI();
+            document.getElementById('checkout-form').reset();
+            togglePaymentInstructions();
+            navigateTo('home');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
